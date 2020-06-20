@@ -51,7 +51,6 @@ Transaction::~Transaction() {}
 //
 
 bool Transaction::operator<(Transaction const &other) { //Sees if the instance's date is less than teh passed in date
-    //std::cout << "Hi" << this->year << " " << other.year << " " << this-> month << " " << other.month << " " << this->day << " " << other.day << std::endl;
 
     bool isLessThan = false;
     if (this->year < other.year) {
@@ -147,12 +146,10 @@ History::History() {
 History::~History() {
     Transaction *Current = this->p_head;
     Transaction *goNext = this->p_head->get_next();
-    //std::cout << "Deleting Head: " << Current->get_day() << std::endl;
     delete Current;
     this->p_head = nullptr;
     while (goNext != nullptr) {
         Current = goNext;
-        //std::cout << "Deleting Next: " << Current->get_day() << std::endl;
         goNext = Current->get_next();
 
         delete Current;
@@ -165,11 +162,9 @@ History::~History() {
 //
 void History::read_history() {
     ece150::open_file();
-    //std::cout << "Header: " << p_head->get_day() << std::endl;
     while (ece150::next_trans_entry() != false) {
         Transaction* temp = new Transaction(ece150::get_trans_symbol(), ece150::get_trans_day(), ece150::get_trans_month(), ece150::get_trans_year(),ece150::get_trans_type(), ece150::get_trans_shares(),ece150::get_trans_amount());
 
-        //std::cout << "First Element: " << p_first->get_day() << std::endl;
         insert(temp);
         temp = nullptr;
     }
@@ -193,7 +188,6 @@ void History::insert(Transaction *p_new_trans) {
         }
 
         p_old->set_next(p_new_trans);
-        //std::cout << "New Element: " << p_new->get_day() << std::endl;
 
     }
 
